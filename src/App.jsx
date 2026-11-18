@@ -737,7 +737,7 @@ function Flow() {
       <div className="wrap">
         <Eyebrow>솔루션 · 상담 흐름</Eyebrow>
         <h2 className="h2">
-          <BlurText text="고객이 고르고, 고객이 정한 만큼만 전한다" animateBy="words" delay={110} />
+          <BlurText text="고객이 선택하고, 고객이 정한 만큼만 전한다" animateBy="words" delay={110} />
         </h2>
         <div className="timeline" ref={ref}>
           <div className="timeline__rail">
