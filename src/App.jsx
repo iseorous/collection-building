@@ -161,7 +161,7 @@ function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.4, delay: 0.6, ease }}
         >
-          <Rings labels={['알아차림', '헤아림', '응답']} />
+          <Rings labels={['알아차림', '헤아림', '움직임']} />
         </motion.div>
       </div>
       <motion.div className="scrollcue" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2 }}>
@@ -189,7 +189,7 @@ function Define() {
           containerClassName="define__statement"
           textClassName="define__statement-text"
         >
-          {'세심함이란 상대가 말하지 않은 필요·불편을\n미리 알아차리고, 헤아리고, 응답하는 것이다.'}
+          {'세심함이란 상대가 말하지 않은 필요·불편을\n미리 알아차리고, 헤아리고,\n그에 맞게 움직이는 노력으로 완성된다.'}
         </ScrollReveal>
       </div>
     </section>
@@ -200,7 +200,7 @@ function Define() {
 const STEPS = [
   { n: '01', ko: '알아차림', en: 'NOTICE', body: ['상대가 말하지 않은', '필요나 불편을 감지한다'] },
   { n: '02', ko: '헤아림', en: 'INTERPRET', body: ['그것이 상대에게 어떤 의미인지', '상대의 입장에서 이해한다'] },
-  { n: '03', ko: '응답', en: 'RESPOND', body: ['그 이해 바탕으로', '구체적인 형태로 전달한다'] }
+  { n: '03', ko: '움직임', en: 'ACT', body: ['헤아린 것에 맞게', '더하거나, 덜하거나, 멈춘다'] }
 ];
 
 function Steps() {
@@ -209,7 +209,7 @@ function Steps() {
       <div className="wrap">
         <Eyebrow>세심함의 세 단계</Eyebrow>
         <h2 className="h2">
-          <BlurText text="알아차리고, 헤아리고, 응답한다" animateBy="words" delay={160} direction="top" />
+          <BlurText text="알아차리고, 헤아리고, 움직인다" animateBy="words" delay={160} direction="top" />
         </h2>
         <div className="steps__grid">
           <motion.div
@@ -276,7 +276,7 @@ function Standard() {
 
 /* ───────────────── DESIGN → VALUE ───────────────── */
 const FLOW3 = [
-  { en: 'ATTENTIVENESS', ko: '세심함', body: ['말하지 않은 필요·불편을', '알아차리고, 헤아리고, 응답하는 것'] },
+  { en: 'ATTENTIVENESS', ko: '세심함', body: ['말하지 않은 필요·불편을', '알아차리고, 헤아리고, 그에 맞게 움직이는 것'] },
   { en: 'DESIGN', ko: '디자인', body: ['세심함을 감각적으로 인지할 수 있는 형태로 옮기는 일'] },
   { en: 'HIGH VALUE', ko: '고부가가치', body: ['고객이 서비스나 프로덕트를 통해 느끼는', '효용 가치의 극대화'] }
 ];
@@ -889,7 +889,7 @@ function Closing() {
           <SplitText text="상대에게 있다" tag="span" className="closing__line closing__line--peach" splitType="chars" delay={55} />
         </h2>
         <Reveal delay={0.3} className="closing__rings">
-          <Rings labels={['알아차림', '헤아림', '응답']} dark />
+          <Rings labels={['알아차림', '헤아림', '움직임']} dark />
         </Reveal>
       </div>
       <footer className="foot">
