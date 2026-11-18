@@ -508,21 +508,42 @@ function Silence() {
 }
 
 /* ───────────────── VIDEO SLOT (single placeholder) ───────────────── */
+const VIDEO_SRC =
+  'https://d2ol7oe51mr4n9.cloudfront.net/user_3M2G5YfQKJ3baCYs4AAobJhOCAL/f1178ac8-5f15-42a7-aa66-e9e3464f20e1.mp4';
+const VIDEO_POSTER =
+  'https://d2ol7oe51mr4n9.cloudfront.net/user_3M2G5YfQKJ3baCYs4AAobJhOCAL/37a7e895-6675-436b-a89e-899f63a08104.jpg';
+
 function VideoSlot() {
+  const videoRef = useRef(null);
+  const [started, setStarted] = useState(false);
+  const play = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    setStarted(true);
+    v.play().catch(() => {});
+  };
   return (
     <section className="sec video" id="video" data-chapter="problem">
       <div className="wrap">
         <Eyebrow>처음 보는 사람에게 말한다는 것</Eyebrow>
         <Reveal>
-          <div className="video__frame" data-video-slot>
-            {/* 영상 자리: 합친 영상이 준비되면 아래 placeholder를 <video>로 교체 */}
-            <div className="video__placeholder">
-              <div className="video__play">
-                <IconPlay />
-              </div>
-              <p>영상이 들어갈 자리</p>
-              <span>16 : 9</span>
-            </div>
+          <div className="video__frame">
+            <video
+              ref={videoRef}
+              src={VIDEO_SRC}
+              poster={VIDEO_POSTER}
+              preload="metadata"
+              playsInline
+              controls={started}
+              onPlay={() => setStarted(true)}
+            />
+            {!started && (
+              <button type="button" className="video__cover" onClick={play} aria-label="영상 재생">
+                <span className="video__play">
+                  <IconPlay />
+                </span>
+              </button>
+            )}
           </div>
         </Reveal>
       </div>

@@ -213,7 +213,10 @@ strong { font-weight: 700; color: var(--ink); }
 /* ── video ── */
 .video { padding-top: clamp(72px, 12vh, 140px); }
 .video__frame { aspect-ratio: 16 / 9; border-radius: 26px; overflow: hidden; background: var(--ink); position: relative; box-shadow: 0 40px 80px -50px rgba(43, 37, 34, 0.7); }
-.video__frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.video__frame video { width: 100%; height: 100%; object-fit: cover; display: block; background: var(--ink); }
+.video__cover { position: absolute; inset: 0; display: grid; place-items: center; border: 0; padding: 0; cursor: pointer; background: linear-gradient(rgba(43,37,34,0.05), rgba(43,37,34,0.35)); }
+.video__cover .video__play { width: 88px; height: 88px; background: rgba(43, 37, 34, 0.55); backdrop-filter: blur(6px); transition: transform 0.4s var(--ease); }
+.video__cover:hover .video__play { transform: scale(1.08); }
 .video__placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: rgba(246, 241, 235, 0.75); background:
   radial-gradient(circle at 30% 30%, rgba(226, 177, 156, 0.16), transparent 50%),
   radial-gradient(circle at 75% 70%, rgba(62, 107, 115, 0.22), transparent 55%), var(--ink); }
