@@ -484,7 +484,7 @@ function Silence() {
 /* ───────────────── VIDEO SLOT (single placeholder) ───────────────── */
 function VideoSlot() {
   return (
-    <section className="sec video" id="video">
+    <section className="sec video" id="video" data-chapter="problem">
       <div className="wrap">
         <Eyebrow>처음 보는 사람에게 말한다는 것</Eyebrow>
         <Reveal>
@@ -839,10 +839,10 @@ export default function App() {
         <Standard />
         <DesignValue />
         <Topic />
+        <VideoSlot />
         <Problem />
         <Counselor />
         <Silence />
-        <VideoSlot />
         <Disclosure />
         <Empathy />
         <Solution />
