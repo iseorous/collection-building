@@ -105,8 +105,8 @@ function Hero() {
       </div>
       <div className="hero__inner">
         <h1 className="hero__title">
-          <SplitText text="AI가 듣고," tag="span" className="hero__line" splitType="chars" delay={60} duration={1.1} trigger="load" textAlign="left" />
-          <SplitText text="사람이 상담한다" tag="span" className="hero__line hero__line--accent" splitType="chars" delay={60} duration={1.1} trigger="load" textAlign="left" />
+          <SplitText text="AI가 먼저 듣고," tag="span" className="hero__line" splitType="chars" delay={60} duration={1.1} trigger="load" textAlign="left" />
+          <SplitText text="사람이 상담한다." tag="span" className="hero__line hero__line--accent" splitType="chars" delay={60} duration={1.1} trigger="load" textAlign="left" />
         </h1>
         <motion.p
           className="hero__lead"
@@ -114,9 +114,9 @@ function Hero() {
           animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
           transition={{ duration: 1.2, delay: 1.1, ease }}
         >
-          뷰티·의료 분야 상담 과정에서 AI가 듣고, 사람이 상담하는 것이
+          뷰티·의료 분야 상담 과정에서 AI가 듣고,{' '}
           <br />
-          어떻게 고객을 위한 세심함이 되는가
+          사람이 상담하는 것이 어떻게 고객을 위한 세심함이 되는가
         </motion.p>
         <motion.div
           className="hero__rings"
@@ -152,7 +152,7 @@ function Define() {
           containerClassName="define__statement"
           textClassName="define__statement-text"
         >
-          세심함이란 상대가 말하지 않은 필요·불편을 미리 알아차리고, 헤아리고, 응답하는 것이다.
+          {'세심함이란 상대가 말하지 않은 필요·불편을\n미리 알아차리고, 헤아리고, 응답하는 것이다.'}
         </ScrollReveal>
       </div>
     </section>
@@ -161,9 +161,9 @@ function Define() {
 
 /* ───────────────── STEPS ───────────────── */
 const STEPS = [
-  { n: '01', ko: '알아차림', en: 'NOTICE', body: ['상대가 말하지 않은 필요나', '불편을 감지한다'] },
+  { n: '01', ko: '알아차림', en: 'NOTICE', body: ['상대가 말하지 않은', '필요나 불편을 감지한다'] },
   { n: '02', ko: '헤아림', en: 'INTERPRET', body: ['그것이 상대에게 어떤 의미인지', '상대의 입장에서 이해한다'] },
-  { n: '03', ko: '응답', en: 'RESPOND', body: ['그 이해를 구체적인 형태로', '전달한다'] }
+  { n: '03', ko: '응답', en: 'RESPOND', body: ['그 이해 바탕으로', '구체적인 형태로 전달한다'] }
 ];
 
 function Steps() {
@@ -239,9 +239,9 @@ function Standard() {
 
 /* ───────────────── DESIGN → VALUE ───────────────── */
 const FLOW3 = [
-  { en: 'ATTENTIVENESS', ko: '세심함', body: '말하지 않은 필요·불편을 알아차리고, 헤아리고, 응답하는 것' },
-  { en: 'DESIGN', ko: '디자인', body: '세심함을 감각적으로 인지할 수 있는 형태로 옮기는 일' },
-  { en: 'HIGH VALUE', ko: '고부가가치', body: '고객이 서비스나 프로덕트를 통해 느끼는 효용 가치의 극대화' }
+  { en: 'ATTENTIVENESS', ko: '세심함', body: ['말하지 않은 필요·불편을', '알아차리고, 헤아리고, 응답하는 것'] },
+  { en: 'DESIGN', ko: '디자인', body: ['세심함을 감각적으로 인지할 수 있는 형태로 옮기는 일'] },
+  { en: 'HIGH VALUE', ko: '고부가가치', body: ['고객이 서비스나 프로덕트를 통해 느끼는', '효용 가치의 극대화'] }
 ];
 
 function DesignValue() {
@@ -265,7 +265,14 @@ function DesignValue() {
               >
                 <span className="flow3__en">{f.en}</span>
                 <h3>{f.ko}</h3>
-                <p>{f.body}</p>
+                <p>
+                  {f.body.map((line, k) => (
+                    <span key={k}>
+                      {k > 0 && <br />}
+                      {line}
+                    </span>
+                  ))}
+                </p>
               </motion.div>
               {i < FLOW3.length - 1 && (
                 <svg className="flow3__arrow" viewBox="0 0 60 24" aria-hidden="true">
@@ -320,7 +327,7 @@ function Topic() {
             stagger={0.03}
             textClassName="topic__float"
           >
-            AI가 듣고,
+            AI가 먼저 듣고,
           </ScrollFloat>
           <ScrollFloat
             animationDuration={1}
@@ -612,7 +619,7 @@ function Solution() {
       <div className="wrap solution__inner">
         <Eyebrow light>솔루션</Eyebrow>
         <Reveal>
-          <p className="solution__pre">속마음은 AI에게 더 털어놓지만, 공감은 사람에게서 더 믿는다.</p>
+          <p className="solution__pre">속마음은 AI에게 더 털어놓지만, 공감과 신뢰는 사람에게서 더 받는다.</p>
         </Reveal>
         <div className="duo" aria-hidden="true">
           <motion.div className="duo__ring duo__ring--ai" style={{ x: leftX }}>
@@ -621,12 +628,12 @@ function Solution() {
           </motion.div>
           <motion.div className="duo__ring duo__ring--human" style={{ x: rightX }}>
             <span>사람</span>
-            <b>응답</b>
+            <b>공감</b>
           </motion.div>
         </div>
         <h2 className="solution__title">
-          <SplitText text="AI가 듣고," tag="span" className="solution__line" splitType="chars" delay={50} />
-          <SplitText text="사람이 응답한다" tag="span" className="solution__line solution__line--peach" splitType="chars" delay={50} />
+          <SplitText text="AI가 먼저 듣고," tag="span" className="solution__line" splitType="chars" delay={50} />
+          <SplitText text="사람이 상담한다." tag="span" className="solution__line solution__line--peach" splitType="chars" delay={50} />
         </h2>
       </div>
     </section>
@@ -821,7 +828,7 @@ function Closing() {
         </Reveal>
       </div>
       <footer className="foot">
-        <span>AI가 듣고, 사람이 상담한다</span>
+        <span>AI가 먼저 듣고, 사람이 상담한다.</span>
         <span>Collection Building &amp; Design Management · 2026</span>
       </footer>
     </section>
