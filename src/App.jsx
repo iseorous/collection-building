@@ -508,10 +508,8 @@ function Silence() {
 }
 
 /* ───────────────── VIDEO SLOT (single placeholder) ───────────────── */
-const VIDEO_SRC =
-  'https://d2ol7oe51mr4n9.cloudfront.net/user_3M2G5YfQKJ3baCYs4AAobJhOCAL/f1178ac8-5f15-42a7-aa66-e9e3464f20e1.mp4';
-const VIDEO_POSTER =
-  'https://d2ol7oe51mr4n9.cloudfront.net/user_3M2G5YfQKJ3baCYs4AAobJhOCAL/37a7e895-6675-436b-a89e-899f63a08104.jpg';
+const VIDEO_SRC = `${import.meta.env.BASE_URL}video/attentiveness.mp4`;
+const VIDEO_POSTER = `${import.meta.env.BASE_URL}video/poster.jpg`;
 
 function VideoSlot() {
   const videoRef = useRef(null);
