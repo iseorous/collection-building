@@ -1,6 +1,9 @@
 import { motion } from 'motion/react';
 
 /* 세 개의 겹친 원 — 알아차림 · 헤아림 · 응답 */
+const R = 92;
+const C = 2 * Math.PI * R;
+
 export default function Rings({ labels, dark = false }) {
   const pos = [
     { cx: 120, cy: 120 },
@@ -16,15 +19,17 @@ export default function Rings({ labels, dark = false }) {
           <motion.circle
             cx={p.cx}
             cy={p.cy}
-            r="92"
+            r={R}
             fill={i === 1 ? (dark ? 'rgba(226,177,156,0.10)' : 'rgba(154,78,54,0.06)') : 'none'}
             stroke={i === 1 ? '#9A4E36' : stroke}
             strokeWidth={i === 1 ? 2 : 1.25}
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
+            /* Safari는 <circle>의 pathLength를 제대로 지원하지 않아 실제 둘레 길이로 그린다 */
+            strokeDasharray={C}
+            transform={`rotate(-90 ${p.cx} ${p.cy})`}
+            initial={{ strokeDashoffset: C, opacity: 0 }}
+            whileInView={{ strokeDashoffset: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.6, delay: 0.25 * i, ease: [0.22, 1, 0.36, 1] }}
-            style={{ rotate: -90, transformOrigin: `${p.cx}px ${p.cy}px` }}
           />
           <motion.text
             x={p.cx}
