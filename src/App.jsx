@@ -15,6 +15,7 @@ import Threads from './components/reactbits/Threads.jsx';
 import Grainient from './components/reactbits/Grainient.jsx';
 
 import Rings from './components/Rings.jsx';
+import PhotoScatter from './components/PhotoScatter.jsx';
 import { IconTool, IconChat, IconWarning, IconPlay } from './components/Icons.jsx';
 
 const CHAPTERS = [
@@ -402,6 +403,24 @@ function Problem() {
             </div>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────────── FIELD PHOTOS ───────────────── */
+function Field() {
+  return (
+    <section className="sec field-photos" data-chapter="problem">
+      <div className="wrap">
+        <Eyebrow>현장</Eyebrow>
+        <h2 className="h2">
+          <Reveal>다과목 뷰티·웰니스 클리닉</Reveal>
+          <Reveal delay={0.12}>
+            <span className="field-photos__sub">B1층부터 5층까지</span>
+          </Reveal>
+        </h2>
+        <PhotoScatter />
       </div>
     </section>
   );
@@ -848,6 +867,7 @@ export default function App() {
         <Topic />
         <VideoSlot />
         <Problem />
+        <Field />
         <Counselor />
         <Silence />
         <Disclosure />
