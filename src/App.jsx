@@ -637,7 +637,7 @@ function Empathy() {
           <AnimatedContent distance={60} blur={6}>
             <div className="stat">
               <div className="stat__big">
-                <CountUp to={79.7} decimals={1} duration={1.2} suffix="%" />
+                <CountUp to={79.7} decimals={1} duration={1.7} suffix="%" />
               </div>
               <p className="stat__main">
                 대화 전에 챗봇임을 밝히자
