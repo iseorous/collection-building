@@ -10,9 +10,7 @@ import ShinyText from './components/reactbits/ShinyText.jsx';
 import DecryptedText from './components/reactbits/DecryptedText.jsx';
 import AnimatedContent from './components/reactbits/AnimatedContent.jsx';
 import SpotlightCard from './components/reactbits/SpotlightCard.jsx';
-import ScrollStack, { ScrollStackItem } from './components/reactbits/ScrollStack.jsx';
 import Threads from './components/reactbits/Threads.jsx';
-import Grainient from './components/reactbits/Grainient.jsx';
 
 import Rings from './components/Rings.jsx';
 import PhotoScatter from './components/PhotoScatter.jsx';
@@ -27,6 +25,41 @@ const CHAPTERS = [
 ];
 
 const ease = [0.22, 1, 0.36, 1];
+
+/* 스크롤 중에는 WebGL 배경을 잠시 멈춰서 스크롤이 끊기지 않게 한다 */
+let scrollingNow = false;
+const scrollSubs = new Set();
+if (typeof window !== 'undefined') {
+  let t = 0;
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!scrollingNow) {
+        scrollingNow = true;
+        scrollSubs.forEach(fn => fn(true));
+      }
+      clearTimeout(t);
+      t = setTimeout(() => {
+        scrollingNow = false;
+        scrollSubs.forEach(fn => fn(false));
+      }, 180);
+    },
+    { passive: true }
+  );
+}
+function useScrolling() {
+  const [v, setV] = useState(scrollingNow);
+  useEffect(() => {
+    scrollSubs.add(setV);
+    return () => scrollSubs.delete(setV);
+  }, []);
+  return v;
+}
+const CalmThreads = props => {
+  const scrolling = useScrolling();
+  return <Threads {...props} paused={scrolling} />;
+};
+
 
 const Reveal = ({ children, delay = 0, y = 32, className = '' }) => (
   <motion.div
@@ -77,7 +110,17 @@ function TopBar() {
       </a>
       <nav className="topbar__nav">
         {CHAPTERS.map((c, i) => (
-          <a key={c.id} href={`#${c.id}`} className={active === c.id ? 'is-active' : ''}>
+          <a
+            key={c.id}
+            href={`#${c.id}`}
+            className={active === c.id ? 'is-active' : ''}
+            onClick={e => {
+              const el = document.getElementById(c.id);
+              if (!el) return;
+              e.preventDefault();
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
+          >
             <span className="num">0{i + 1}</span>
             {c.label}
           </a>
@@ -92,17 +135,10 @@ function Hero() {
   return (
     <section className="hero" id="top" data-chapter="intro">
       <div className="hero__bg" aria-hidden="true">
-        <Grainient
-          colors={['#F6F1EB', '#EDE4D9', '#E2B19C', '#F6F1EB', '#EDE4D9']}
-          lightMode
-          angle={35}
-          speed={0.35}
-          flow={0.6}
-          silk={0.5}
-          grainAmount={0.05}
-          interactive
-          stir={0.6}
-        />
+        <div className="hero__blob hero__blob--1" />
+        <div className="hero__blob hero__blob--2" />
+        <div className="hero__blob hero__blob--3" />
+        <div className="hero__grain" />
       </div>
       <div className="hero__inner">
         <h1 className="hero__title">
@@ -554,7 +590,7 @@ function Disclosure() {
   return (
     <section className="sec dark disclosure" id="background" data-chapter="background">
       <div className="dark__bg" aria-hidden="true">
-        <Threads color={[0.89, 0.69, 0.61]} amplitude={1.2} distance={0.3} lineCount={60} opacity={0.55} speed={0.35} />
+        <CalmThreads color={[0.89, 0.69, 0.61]} amplitude={1.2} distance={0.3} lineCount={45} opacity={0.55} speed={0.35} />
       </div>
       <div className="wrap disclosure__inner">
         <Eyebrow light>배경 · 사람들은 AI 앞에서 속마음을 더 털어놓는다</Eyebrow>
@@ -652,7 +688,7 @@ function Solution() {
   return (
     <section className="sec dark solution" id="solution" data-chapter="solution" ref={ref}>
       <div className="dark__bg dark__bg--soft" aria-hidden="true">
-        <Threads color={[0.24, 0.42, 0.45]} accentColor={[0.89, 0.69, 0.61]} amplitude={0.9} distance={0.2} lineCount={40} opacity={0.4} speed={0.25} angle={-15} />
+        <CalmThreads color={[0.24, 0.42, 0.45]} accentColor={[0.89, 0.69, 0.61]} amplitude={0.9} distance={0.2} lineCount={40} opacity={0.4} speed={0.25} angle={-15} />
       </div>
       <div className="wrap solution__inner">
         <Eyebrow light>솔루션</Eyebrow>
@@ -825,25 +861,16 @@ function Hypotheses() {
           <BlurText text="Hypotheses" animateBy="letters" delay={30} />
         </h2>
       </div>
-      <ScrollStack
-        useWindowScroll
-        smoothScroll={false}
-        itemDistance={80}
-        itemStackDistance={22}
-        stackPosition="22%"
-        baseScale={0.9}
-        itemScale={0.025}
-        dimAmount={0.08}
-        holdDistance={120}
-        className="hypo__stack"
-      >
+      <div className="wrap hstack">
         {HYPO.map((h, i) => (
-          <ScrollStackItem key={h.n} itemClassName={`hcard hcard--${i + 1}`}>
-            <span className="hcard__n">{h.n}</span>
-            <p className="hcard__q">{h.q}</p>
-          </ScrollStackItem>
+          <div key={h.n} className="hstack__slot" style={{ top: `calc(var(--stack-top) + ${i * 22}px)` }}>
+            <div className={`hcard hcard--${i + 1}`}>
+              <span className="hcard__n">{h.n}</span>
+              <p className="hcard__q">{h.q}</p>
+            </div>
+          </div>
         ))}
-      </ScrollStack>
+      </div>
     </section>
   );
 }
@@ -853,7 +880,7 @@ function Closing() {
   return (
     <section className="sec dark closing">
       <div className="dark__bg" aria-hidden="true">
-        <Threads color={[0.89, 0.69, 0.61]} amplitude={1.6} distance={0.35} lineCount={70} opacity={0.5} speed={0.3} angle={10} />
+        <CalmThreads color={[0.89, 0.69, 0.61]} amplitude={1.6} distance={0.35} lineCount={50} opacity={0.5} speed={0.3} angle={10} />
       </div>
       <div className="wrap closing__inner">
         <Eyebrow light>세심함(Attentiveness)</Eyebrow>
